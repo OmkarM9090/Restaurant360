@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 
 const app = express();
 
@@ -12,6 +13,21 @@ app.get('/health', (req, res) => {
     service: "smart-resort-backend",
     status: "healthy"
   });
+});
+
+app.get('/health/db', (req, res) => {
+  const isConnected = mongoose.connection.readyState === 1;
+  if (isConnected) {
+    res.json({
+      success: true,
+      database: "connected"
+    });
+  } else {
+    res.status(500).json({
+      success: false,
+      database: "disconnected"
+    });
+  }
 });
 
 app.use((err, req, res, next) => {

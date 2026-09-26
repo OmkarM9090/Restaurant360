@@ -5,10 +5,13 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "seed": "node scripts/seedDatabase.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^18.0.4",
     "express": "^4.21.2",
-    "cors": "^2.8.5"
+    "mongoose": "^9.10.2"
   }
 }
