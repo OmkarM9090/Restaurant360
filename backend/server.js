@@ -4,8 +4,10 @@ const connectDB = require('./src/config/database');
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to Database before starting the server
-connectDB().then(() => {
+connectDB().then((isConnected) => {
+  if (!isConnected) {
+    console.log('Running in Development/Fallback mode without MongoDB.');
+  }
   app.listen(PORT, () => {
     console.log(`Backend service is running on port ${PORT}`);
   });

@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const routes = require('./routes');
+const { sendError } = require('./utils/response');
 
 const app = express();
 
@@ -30,12 +32,12 @@ app.get('/health/db', (req, res) => {
   }
 });
 
+// Mount APIs
+app.use(routes);
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({
-    success: false,
-    message: 'Internal server error'
-  });
+  sendError(res, 500, 'INTERNAL_ERROR', 'Internal server error');
 });
 
 module.exports = app;
